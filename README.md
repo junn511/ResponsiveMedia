@@ -10,4 +10,4 @@ $ pip install pyOSC
 ```
 
 ## How to run
-open the macOSSample.app
+*open the macOSSample.app
