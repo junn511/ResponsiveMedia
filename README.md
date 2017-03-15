@@ -6,5 +6,8 @@
 pyOSC install
 
 ```
-$ cd pip install pyOSC
+$ pip install pyOSC
 ```
+
+## How to run
+open the macOSSample.app
