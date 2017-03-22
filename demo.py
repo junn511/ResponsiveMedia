@@ -31,7 +31,11 @@ class JinsSocket(threading.Thread):
         self.EogV = np.zeros(0)
 
         self.SendingOSC = np.zeros(0)
-        self.OscData = np.zeros(0)     
+        self.OscData = np.zeros(0)
+
+        self.w_size = 10  
+
+        self.count = 0   
 
 
     def setIP_Port(self, IP, Port):
@@ -56,7 +60,8 @@ class JinsSocket(threading.Thread):
                 values = list(map(int, line.split(",")))
                 if len(values) == 9:
                     self.addFULL(values)
-                    # self.checkSIZE()
+                    self.checkSIZE()
+                    self.BlinkDetection()
                 else:
                     break
 
@@ -77,17 +82,16 @@ class JinsSocket(threading.Thread):
     def Sampling(self):
         if len(self.SendingOSC) == 250: #50Hz 250 5sec
             self.frequency = np.sum(self.OscData) / 5
-
             self.OscDataSend(self.frequency)
             print (self.frequency)
             self.frequency = np.zeros(0)
             self.OscData = np.zeros(0)
             self.SendingOSC = np.zeros(0)
 
-        if len(self.EogV) == 18: #100Hz 18 0.18sec
-            self.Detection_Algorithm(self.EogH,self.EogV)
-        else:
-            self.Buffer = np.array([0])
+        # if len(self.EogV) == 18: #100Hz 18 0.18sec
+        #     self.Detection_Algorithm(self.EogH,self.EogV)
+        # else:
+        #     self.Buffer = np.array([0])
 
     def Detection_Algorithm(self,EogH_values,EogV_values):
 
@@ -104,14 +108,32 @@ class JinsSocket(threading.Thread):
 
         print 'Vv Sum: %d, Vh Sum: %d, Vh_std: %d, Vv_std: %d' % (self.Vv_Sum, self.Vh_Sum, self.Vh_std, self.Vv_std)
 
-        if self.Vv_std > 15:
-            print ('blink')
-            self.OscData = np.append(self.OscData,1)
+        # if self.Vv_std > 60:
+        #     print ('blink')
+        #     self.OscData = np.append(self.OscData,1)
    
-        else:
-            print ('no')
+        # else:
+        #     print ('no')
         self.EogH = np.zeros(0)
         self.EogV = np.zeros(0)
+
+    def BlinkDetection(self):
+        Vh = np.mean(self.EogH)
+        Vv = np.mean(self.EogV)
+        Vh_std = np.std(self.EogH)
+        Vv_std = np.std(self.EogV)
+
+        if Vv_std > 100 and Vh_std <90:
+            self.count += 1
+            if self.count > 6:
+                print 'blink'
+                self.count = 0
+                self.OscData = np.append(self.OscData,1)
+        else:
+            print 'no'
+
+        # print 'Vv: %d, Vh: %d, Vh_std: %d, Vv_std: %d' % (Vv, Vh, Vh_std, Vv_std)
+
 
     def OscDataSend(self,values):
 
@@ -119,6 +141,15 @@ class JinsSocket(threading.Thread):
         self.oscmsg.setAddress("x")
         self.oscmsg.append(values)
         self.osc.send(self.oscmsg)
+
+
+    def checkSIZE(self):
+        if len(self.EogL) > self.w_size:
+            self.EogL = self.EogL[-self.w_size:]
+            self.EogR = self.EogR[-self.w_size:]
+            self.EogH = self.EogH[-self.w_size:]
+            self.EogV = self.EogV[-self.w_size:]
+
 
 
 jins_client = JinsSocket()
