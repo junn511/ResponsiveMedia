@@ -1,6 +1,6 @@
 # ActivityRecognition_EOG
 
-### Versions : Python 2.7.13 & anaconda-4.0.0　OS:MacOS
+### Versions : Python 2.7.13 & anaconda-4.0.0　/ OS: MacOS
 
 ## Environmental set up
 ### python install
@@ -28,10 +28,10 @@ $ pip install pyOSC
 ```
 
 ## How to run
-・open the macOSSample.app
+・open the macOSSample.app. connect the J!NS MEME
 
 
-・Set the movie in Quartz Composer
+・Set the movie in Quartz Composer and run
 
 
 ・open the terminal.app
