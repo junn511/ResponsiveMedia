@@ -5,8 +5,12 @@
 ## Environmental set up
 ### python install
 <a href="https://www.continuum.io/downloads">Go to the Anaconda Page</a>
+
 Slect the "COMMAND LINE INSTALLER"
+
+
 ![diagram](./images/fig1.png) 
+<img src="./images/fig1.png" width="320px">
 
 then move installed your directroy 
 ```
