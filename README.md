@@ -8,8 +8,6 @@
 
 Slect the "COMMAND LINE INSTALLER"
 
-
-![diagram](./images/fig1.png) 
 <img src="./images/fig1.png" width="320px">
 
 then move installed your directroy 
@@ -22,8 +20,8 @@ install Anaconda & Python2.7
 $ bash Anaconda2-4.3.1-MacOSX-x86_64.sh 
 ```
 
-### module
-pyOSC install
+### OSC module
+open the terminal app and move your file directory the install pyOSC 
 
 ```
 $ pip install pyOSC
