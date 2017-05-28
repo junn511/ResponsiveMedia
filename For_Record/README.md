@@ -14,7 +14,7 @@ EOG data :[count, AccX, AccY, AccZ, Roll, Yaw, Pitch, EogL, EogR]
 #### run the recording script
 
 ```
-$ cd ActivityRecognition_EOG/MachineLearning/recording
+$ cd ResponsiveMedia/For_Record/recording
 ```
 
 ```
