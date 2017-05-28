@@ -125,14 +125,14 @@ class JinsSocket(threading.Thread):
 
         if Vv_std > 100 and Vh_std <90:
             self.count += 1
-            if self.count > 6:
+            if self.count > 4:
                 print 'blink'
                 self.count = 0
                 self.OscData = np.append(self.OscData,1)
         else:
             print 'no'
 
-        # print 'Vv: %d, Vh: %d, Vh_std: %d, Vv_std: %d' % (Vv, Vh, Vh_std, Vv_std)
+        print 'Vv: %d, Vh: %d, Vh_std: %d, Vv_std: %d' % (Vv, Vh, Vh_std, Vv_std)
 
 
     def OscDataSend(self,values):
